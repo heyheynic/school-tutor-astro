@@ -1,0 +1,35 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Card from "../components/Card.astro";
+
+const data = await fetch(
+  "https://exjdxiojjqpysmemownv.supabase.co/rest/v1/wildfood_mushrooms",
+  {
+    method: "GET",
+    headers: {
+      apikey:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4amR4aW9qanFweXNtZW1vd252Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc3NTQ1ODUsImV4cCI6MjAyMzMzMDU4NX0.WQS4qbT85SblGCNw_3RYRrYkS1sJyqQsQTieV30-wvM",
+    },
+  }
+).then((res) => res.json());
+
+console.log(data);
+---
+
+<MainLayout metatitle="shop">
+  <section>
+    {
+      data.map((product) => {
+        return <Card {...product} />;
+      })
+    }
+  </section>
+</MainLayout>
+
+<style>
+  section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+</style>

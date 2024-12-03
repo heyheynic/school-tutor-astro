@@ -1,0 +1,33 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+//to make it dynamic
+export async function getStaticPaths() {
+  const data = await fetch(
+    `https://exjdxiojjqpysmemownv.supabase.co/rest/v1/wildfood_mushrooms`,
+    {
+      method: "GET",
+      headers: {
+        apikey:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4amR4aW9qanFweXNtZW1vd252Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDc3NTQ1ODUsImV4cCI6MjAyMzMzMDU4NX0.WQS4qbT85SblGCNw_3RYRrYkS1sJyqQsQTieV30-wvM",
+      },
+    }
+  ).then((res) => res.json());
+
+  return data.map((cat) => ({
+    params: { slug: cat.id },
+    props: { cat },
+  }));
+}
+
+const { cat } = Astro.props;
+
+console.log(cat);
+---
+
+<MainLayout metatitle={cat.name}>
+  <h2>{cat.name}</h2>
+  <img src={cat.img_src} alt="img" />
+  <p>
+    {cat.description}
+  </p>
+</MainLayout>

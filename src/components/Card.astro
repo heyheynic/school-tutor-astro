@@ -1,0 +1,13 @@
+---
+const { img_src, name, description, location, id } = Astro.props;
+---
+
+<article>
+  <img src={img_src} alt="bild" />
+  <p>{name}</p>
+  <p>
+    {description}
+  </p>
+  <p>{location}</p>
+  <a href=`/product/${id}`>See more</a>
+</article>
